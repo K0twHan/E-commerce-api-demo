@@ -2,13 +2,16 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { PrismaService } from 'prisma/prisma.service';
-import { NotFoundError } from 'rxjs';
+import { PrismaClient } from '@prisma/client';
+
 
 @Injectable()
 export class ProductService {
   constructor(private prisma : PrismaService) {}
  async create(createProductDto: CreateProductDto) {
-    const {name,description,stock,price} = createProductDto;
+    
+    const {name,description,stock,price,categories} = createProductDto;
+    
     const foundProduct = await this.prisma.product.findMany({where : {name} })
     if(foundProduct.length !== 0)
     {
@@ -18,7 +21,16 @@ export class ProductService {
       name,
       description,
       price,
-      stock
+      stock,
+      categories : {
+        connectOrCreate: categories.map(category => ({
+          where: { name: category },
+          create: { name: category },
+        })),
+      }
+      
+         
+      
     }})
     return {message : 'Product created succesfully'};
   }
@@ -39,10 +51,10 @@ export class ProductService {
     {
       throw new NotFoundException('Product was not found')
     }
-    const updated_product = await this.prisma.product.update({where : {id}, data : updateProductDto})
-    return {message : `Product updated succesfully`};
+    const updated_product = await this.prisma.product.update({where : {id} , data : UpdateProductDto })
+     return {updated_product};
   }
-  
+
   async remove(id: number) {
     await this.prisma.product.delete({where : {id}})
     return {message :`Product deleted succesfully`};

@@ -1,26 +1,41 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateOrderItemDto } from './dto/create-order-item.dto';
 import { UpdateOrderItemDto } from './dto/update-order-item.dto';
+import { PrismaService } from 'prisma/prisma.service';
 
 @Injectable()
 export class OrderItemService {
-  create(createOrderItemDto: CreateOrderItemDto) {
-    return 'This action adds a new orderItem';
+  constructor(private prisma : PrismaService) {}
+  async create(createOrderItemDto: CreateOrderItemDto) {
+    const {quantity,productId,orderId} = createOrderItemDto;
+    await this.prisma.orderItem.create({data : {
+      quantity,productId,orderId
+    }})
+    return {message : 'This action adds a new orderItem'};
+    
   }
 
-  findAll() {
-    return `This action returns all orderItem`;
+  async findAll() {
+    return this.prisma.orderItem.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} orderItem`;
+  async findOne(id: number) {
+    const orderitem = await this.prisma.orderItem.findUnique({where: {id}})
+    return {orderitem};
   }
 
-  update(id: number, updateOrderItemDto: UpdateOrderItemDto) {
-    return `This action updates a #${id} orderItem`;
+  async update(id: number, updateOrderItemDto: UpdateOrderItemDto) {
+    const old_orderitem = await this.prisma.orderItem.findUnique({where : {id}})
+    if(!old_orderitem)
+    {
+      throw new NotFoundException('Product was not found')
+    }
+    const new_orderitem = await this.prisma.orderItem.update({where : {id}, data: updateOrderItemDto})
+    return {new_orderitem};
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} orderItem`;
+  async remove(id: number) {
+    await this.prisma.order.delete({where : {id}})
+    return {message : 'Order deleted succesfully'};
   }
 }

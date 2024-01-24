@@ -6,10 +6,11 @@ import { UsersModule } from './users/users.module';
 import { ProductModule } from './product/product.module';
 import { OrderModule } from './order/order.module';
 import { OrderItemModule } from './order-item/order-item.module';
+import { CategoryModule } from './category/category.module';
 
 
 @Module({
-  imports: [AuthModule,PrismaModule,JwtModule, UsersModule, ProductModule, OrderModule, OrderItemModule],
+  imports: [AuthModule,PrismaModule,JwtModule, UsersModule, ProductModule, OrderModule, OrderItemModule, CategoryModule],
 
 })
 export class AppModule {}

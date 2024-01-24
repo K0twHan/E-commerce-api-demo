@@ -1,4 +1,5 @@
-import { IsNotEmpty,IsString,IsEmail,Length, isString, IsNumber } from "class-validator";
+import { Type } from "class-transformer";
+import { IsNotEmpty,IsString,IsEmail,Length, isString, IsNumber, IsArray, ValidateNested } from "class-validator";
 
 
 export class CreateProductDto {
@@ -17,4 +18,15 @@ export class CreateProductDto {
     @IsNotEmpty()
     @IsNumber()
     public stock : number
+
+
+    @IsNotEmpty()
+    @IsArray()
+    @IsString({ each: true }) // Her bir kategori adının string olması gerektiğini belirtiyoruz
+    public categories: string[];
+
+
+
+
 }
+
