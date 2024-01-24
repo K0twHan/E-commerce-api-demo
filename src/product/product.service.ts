@@ -40,8 +40,8 @@ export class ProductService {
   }
 
   async findOne(id: number) {
-    const product = await this.prisma.product.findUnique({where : {id}, select : {name :true,description :true,price:true,stock:true}})
-    return { product
+    const product = await this.prisma.product.findUnique({where : {id}, select : {name :true,description :true,price:true,stock:true,categories: {select: { name: true },}}})
+    return {product
     };
   }
 
