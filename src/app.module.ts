@@ -4,10 +4,12 @@ import { PrismaModule } from 'prisma/prisma.module';
 import { JwtModule } from '@nestjs/jwt';
 import { UsersModule } from './users/users.module';
 import { ProductModule } from './product/product.module';
+import { OrderModule } from './order/order.module';
+import { OrderItemModule } from './order-item/order-item.module';
 
 
 @Module({
-  imports: [AuthModule,PrismaModule,JwtModule, UsersModule, ProductModule],
+  imports: [AuthModule,PrismaModule,JwtModule, UsersModule, ProductModule, OrderModule, OrderItemModule],
 
 })
 export class AppModule {}

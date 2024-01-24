@@ -16,4 +16,8 @@ export class AuthDto {
     @IsNotEmpty()
     @IsString()
     public fullName : string
+
+    @IsNotEmpty()
+    @IsString()
+    public address : string
 }
