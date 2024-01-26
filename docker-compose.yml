@@ -1,0 +1,22 @@
+# docker-compose.yml
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql://batuhan:password@db:5432/db
+  db:
+    image: postgres:13
+    restart: always
+    environment:
+      POSTGRES_USER: batuhan
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
+    volumes:
+      - db-data:/var/lib/postgresql/data
+volumes:
+  db-data:
