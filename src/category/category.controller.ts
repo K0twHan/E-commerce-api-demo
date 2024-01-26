@@ -33,7 +33,7 @@ export class CategoryController {
   @ApiParam({
     name : 'id',
     type : 'integer',
-    description : 'enter unique id',
+    description : 'id değeri giriniz',
     required : true
   })
   findOne(@Param('id') id: string) {
@@ -41,10 +41,23 @@ export class CategoryController {
   }
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
+  @ApiBody({schema : {
+    type : 'object',
+    properties : {
+      name : {
+        type : 'string',
+        example : 'Electronic',
+        description : "Yeni değeri giriniz"
+        
+      }
+    }
+  }
+  })
+
   @ApiParam({
     name : 'id',
     type : 'integer',
-    description : 'enter unique id',
+    description : 'id değeri giriniz',
     required : true
   })
   update(@Param('id') id: string, @Body() updateCategoryDto: UpdateCategoryDto) {
@@ -55,7 +68,7 @@ export class CategoryController {
   @ApiParam({
     name : 'id',
     type : 'integer',
-    description : 'enter unique id',
+    description : 'id değeri giriniz',
     required : true
   })
   remove(@Param('id') id: string) {

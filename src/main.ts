@@ -9,10 +9,10 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({whitelist: true}),new ValidationPipe({transformOptions: {
     enableImplicitConversion: true}}))
   app.use(cookieParser())
-  const config =  new DocumentBuilder().setTitle('Swagger Test').setDescription('Swagger api test Desc').setVersion('1.0.0').build()
+  const config =  new DocumentBuilder().setTitle('Swagger E-Commerce-Demo-Api').setDescription('E-ticaret sitesi demo apisi').setVersion('1.0.0').build()
 
   const document = SwaggerModule.createDocument(app,config)
-  SwaggerModule.setup('deneme',app,document)
+  SwaggerModule.setup('swagger',app,document)
   await app.listen(3000);
 }
 bootstrap();

@@ -12,7 +12,7 @@ export class OrderService {
       status,totalPrice,userId
     }})
     
-    return {message : 'This action adds a new order'};
+    return {message : "Ürün başarıyla oluşturuldu"};
   }
 
   async findAll() {
@@ -28,14 +28,14 @@ export class OrderService {
     const old_order = await this.prisma.order.findUnique({where : {id}})
     if(!old_order)
     {
-      throw new NotFoundException('Product was not found')
+      throw new NotFoundException('Sipariş bulunamadı')
     }
     const new_order = await this.prisma.order.update({where : {id}, data: updateOrderDto})
-    return {message : 'Order updated succesfully'};
+    return {new_order};
   }
 
   async remove(id: number) {
     await this.prisma.order.delete({where : {id}})
-    return {message : 'Order deleted succesfully'};
+    return {message : `${id} numaralı Sipariş başarıyla silindi`};
   }
 }

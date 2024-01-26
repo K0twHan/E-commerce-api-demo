@@ -15,9 +15,9 @@ export class ProductController {
     properties : {
       name : {
         type : 'string',
-        example : 'Jbl Bt-520'
+        example : 'Jbl Bt-530'
     },
-    desription : {
+    description : {
       type : 'string',
       example : 'A bluetooth Headphone'
     },
@@ -25,9 +25,13 @@ export class ProductController {
       type : 'integer',
       example :"52"
     },
+    price : {
+      type : 'float',
+      example : '345.25'
+    },
     categories : {
       type : 'String[]',
-      example : '[{"name" : "Electronic"},{"name" :"Headphone" }]'
+      example : '["Electronic","Headphone"]'
     }
     }
   }})
@@ -44,7 +48,7 @@ export class ProductController {
   @ApiParam({
     name : 'id',
     type : 'integer',
-    description : 'enter unique id',
+    description : 'id değeri giriniz',
     required : true
   })
   findOne(@Param('id') id: string) {
@@ -52,10 +56,36 @@ export class ProductController {
   }
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
+  @ApiBody({schema : {
+    type : 'object',
+    properties : {
+      name : {
+        type : 'string',
+        example : 'Jbl Bt-520'
+    },
+    description : {
+      type : 'string',
+      example : 'A bluetooth Headphone'
+    },
+    stock : {
+      type : 'integer',
+      example :"52"
+    },
+    price : {
+      type : 'float',
+      example : '345.25'
+    },
+    categories : {
+      type : 'String[]',
+      example : '["Electronic","Headphone"]'
+    }
+    },
+    description : "Değiştirmek istediğiniz değerleri düzenleyiniz"
+  }})
   @ApiParam({
     name : 'id',
     type : 'integer',
-    description : 'enter unique id',
+    description : 'id değeri giriniz',
     required : true
   })
   update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
@@ -66,7 +96,7 @@ export class ProductController {
   @ApiParam({
     name : 'id',
     type : 'integer',
-    description : 'enter unique id',
+    description : 'id değeri giriniz',
     required : true
   })
   remove(@Param('id') id: string) {

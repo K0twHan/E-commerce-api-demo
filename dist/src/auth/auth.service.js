@@ -34,28 +34,28 @@ let AuthService = class AuthService {
                 fullName,
                 address
             } });
-        return { message: 'signup was succesfull' };
+        return { message: "Kullanıcı kaydı başarıyla gerçekleşti" };
     }
     async signin(dto, req, res) {
         const { email, password } = dto;
         const foundUser = await this.prisma.user.findUnique({ where: { email } });
         if (!foundUser) {
-            throw new common_1.BadRequestException('Wrong credentials');
+            throw new common_1.BadRequestException('Hatalı kimlik bilgisi');
         }
         const isMatch = await this.comparePassword({ password, hash: foundUser.hashedPassword });
         if (!isMatch) {
-            throw new common_1.BadRequestException('Wrong credentials');
+            throw new common_1.BadRequestException('Hatalı kimlik bilgisi');
         }
         const token = await this.signToken({ id: foundUser.id, email: foundUser.email });
         if (!token) {
             throw new common_1.ForbiddenException();
         }
         res.cookie('token', token);
-        return res.send({ message: 'Logged in succesfully' });
+        return res.send({ message: 'Başarıyla giriş yapıldı' });
     }
     async signout(req, res) {
         res.clearCookie('token');
-        return res.send({ message: 'Logged out succesfully' });
+        return res.send({ message: 'Başarıyla çıkış yapıldı' });
     }
     async hashPassword(password) {
         const saltOrRounds = 10;

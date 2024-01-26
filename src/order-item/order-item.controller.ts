@@ -42,7 +42,7 @@ export class OrderItemController {
   @ApiParam({
     name : 'id',
     type : 'integer',
-    description : 'enter unique id',
+    description : 'id değeri giriniz',
     required : true
   })
   findOne(@Param('id') id: string) {
@@ -50,10 +50,29 @@ export class OrderItemController {
   }
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
+  @ApiBody({schema : {
+    type : 'object',
+    properties : {
+      quantity : {
+        type : 'int',
+        example : '5'
+      },
+      productId : {
+        type : 'int',
+        example : '7'
+      },
+      orderId : {
+        type : 'int',
+        example : '4'
+      }
+
+    },
+    description : "Değiştirmek istediğiniz değerleri düzenleyiniz"
+  }})
   @ApiParam({
     name : 'id',
     type : 'integer',
-    description : 'enter unique id',
+    description : 'id değeri giriniz',
     required : true
   })
   update(@Param('id') id: string, @Body() updateOrderItemDto: UpdateOrderItemDto) {
@@ -64,7 +83,7 @@ export class OrderItemController {
   @ApiParam({
     name : 'id',
     type : 'integer',
-    description : 'enter unique id',
+    description : 'id değeri giriniz',
     required : true
   })
   remove(@Param('id') id: string) {

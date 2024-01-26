@@ -15,7 +15,7 @@ export class ProductService {
     const foundProduct = await this.prisma.product.findMany({where : {name} })
     if(foundProduct.length !== 0)
     {
-      throw new BadRequestException('Name already exist')
+      throw new BadRequestException('Bu isimde ürün zaten mevcut')
     }
     await this.prisma.product.create({data : {
       name,
@@ -32,7 +32,7 @@ export class ProductService {
          
       
     }})
-    return {message : 'Product created succesfully'};
+    return {message : 'Ürün başarıyla eklendi'};
   }
 
   async findAll() {
@@ -45,18 +45,36 @@ export class ProductService {
     };
   }
 
-  async  update(id: number, updateProductDto: UpdateProductDto) {
-    const old_product = await this.prisma.product.findUnique({where : { id}})
-    if(!old_product)
-    {
-      throw new NotFoundException('Product was not found')
+  async update(id: number, updateProductDto: UpdateProductDto) {
+    const old_product = await this.prisma.product.findUnique({ where: { id } });
+    
+    if (!old_product) {
+        throw new NotFoundException('Ürün bulunamadı');
     }
-    const updated_product = await this.prisma.product.update({where : {id} , data : UpdateProductDto })
-     return {updated_product};
-  }
+
+    const updated_product = await this.prisma.product.update({
+        where: { id },
+        data: {
+            ...(updateProductDto.name && { name: updateProductDto.name }),
+            ...(updateProductDto.description && { description: updateProductDto.description }),
+            ...(updateProductDto.price && { price: updateProductDto.price }),
+            ...(updateProductDto.stock && { stock: updateProductDto.stock }),
+            ...(updateProductDto.categories && {
+                categories: {
+                    connectOrCreate: updateProductDto.categories.map(category => ({
+                        where: { name: category },
+                        create: { name: category },
+                    })),
+                },
+            }),
+        },
+    });
+
+    return { updated_product };
+}
 
   async remove(id: number) {
     await this.prisma.product.delete({where : {id}})
-    return {message :`Product deleted succesfully`};
+    return {message :`${id} numaralı ürün başarıyla silindi`};
   }
 }

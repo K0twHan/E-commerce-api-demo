@@ -11,9 +11,9 @@ async function bootstrap() {
             enableImplicitConversion: true
         } }));
     app.use(cookieParser());
-    const config = new swagger_1.DocumentBuilder().setTitle('Swagger Test').setDescription('Swagger api test Desc').setVersion('1.0.0').build();
+    const config = new swagger_1.DocumentBuilder().setTitle('Swagger E-Commerce-Demo-Api').setDescription('E-ticaret sitesi demo apisi').setVersion('1.0.0').build();
     const document = swagger_1.SwaggerModule.createDocument(app, config);
-    swagger_1.SwaggerModule.setup('deneme', app, document);
+    swagger_1.SwaggerModule.setup('swagger', app, document);
     await app.listen(3000);
 }
 bootstrap();

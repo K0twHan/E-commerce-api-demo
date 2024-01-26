@@ -30,7 +30,7 @@ export class AuthService {
             
         }})
 
-        return {message: 'signup was succesfull'};
+        return {message: "Kullanıcı kaydı başarıyla gerçekleşti"};
     }
 
 
@@ -40,13 +40,13 @@ export class AuthService {
         const foundUser = await this.prisma.user.findUnique( {where: {email}})
         if(!foundUser)
         {
-            throw new BadRequestException('Wrong credentials');
+            throw new BadRequestException('Hatalı kimlik bilgisi');
         }
 
         const isMatch = await this.comparePassword({password,hash:foundUser.hashedPassword})
         if(!isMatch)
         {
-            throw new BadRequestException('Wrong credentials')
+            throw new BadRequestException('Hatalı kimlik bilgisi')
         }
 
         const token = await this.signToken({id : foundUser.id,email: foundUser.email})
@@ -56,14 +56,14 @@ export class AuthService {
         }
         res.cookie('token',token)
 
-        return res.send({message : 'Logged in succesfully'});
+        return res.send({message : 'Başarıyla giriş yapıldı'});
     }
     
     
     
     async signout(req : Request, res : Response) {
         res.clearCookie('token')
-        return res.send({message : 'Logged out succesfully'})
+        return res.send({message : 'Başarıyla çıkış yapıldı'})
     }
 
 

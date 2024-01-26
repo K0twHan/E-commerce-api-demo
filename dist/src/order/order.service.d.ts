@@ -26,7 +26,14 @@ export declare class OrderService {
         };
     }>;
     update(id: number, updateOrderDto: UpdateOrderDto): Promise<{
-        message: string;
+        new_order: {
+            id: number;
+            createdAt: Date;
+            status: string;
+            totalPrice: number;
+            userId: number;
+            updated_at: Date;
+        };
     }>;
     remove(id: number): Promise<{
         message: string;

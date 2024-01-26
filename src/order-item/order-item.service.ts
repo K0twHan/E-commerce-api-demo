@@ -11,7 +11,7 @@ export class OrderItemService {
     await this.prisma.orderItem.create({data : {
       quantity,productId,orderId
     }})
-    return {message : 'This action adds a new orderItem'};
+    return {message : 'sipariş nesnesi başarıyla oluşturuldu'};
     
   }
 
@@ -28,14 +28,14 @@ export class OrderItemService {
     const old_orderitem = await this.prisma.orderItem.findUnique({where : {id}})
     if(!old_orderitem)
     {
-      throw new NotFoundException('Product was not found')
+      throw new NotFoundException('Sipariş nesnesi bulunamadı')
     }
     const new_orderitem = await this.prisma.orderItem.update({where : {id}, data: updateOrderItemDto})
     return {new_orderitem};
   }
 
   async remove(id: number) {
-    await this.prisma.order.delete({where : {id}})
-    return {message : 'Order deleted succesfully'};
+    await this.prisma.orderItem.deleteMany({where : {id}})
+    return {message : `${id} numaralı Sipariş nesnesi başarıyla silindi`};
   }
 }

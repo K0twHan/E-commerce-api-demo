@@ -78,7 +78,7 @@ __decorate([
     (0, swagger_1.ApiParam)({
         name: 'id',
         type: 'integer',
-        description: 'enter unique id',
+        description: 'id değeri giriniz',
         required: true
     }),
     __param(0, (0, common_1.Param)('id')),
@@ -89,10 +89,28 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(jtw_guard_1.JwtAuthGuard),
     (0, common_1.Patch)(':id'),
+    (0, swagger_1.ApiBody)({ schema: {
+            type: 'object',
+            properties: {
+                quantity: {
+                    type: 'int',
+                    example: '5'
+                },
+                productId: {
+                    type: 'int',
+                    example: '7'
+                },
+                orderId: {
+                    type: 'int',
+                    example: '4'
+                }
+            },
+            description: "Değiştirmek istediğiniz değerleri düzenleyiniz"
+        } }),
     (0, swagger_1.ApiParam)({
         name: 'id',
         type: 'integer',
-        description: 'enter unique id',
+        description: 'id değeri giriniz',
         required: true
     }),
     __param(0, (0, common_1.Param)('id')),
@@ -107,7 +125,7 @@ __decorate([
     (0, swagger_1.ApiParam)({
         name: 'id',
         type: 'integer',
-        description: 'enter unique id',
+        description: 'id değeri giriniz',
         required: true
     }),
     __param(0, (0, common_1.Param)('id')),

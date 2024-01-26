@@ -37,7 +37,7 @@ __decorate([
     (0, swagger_1.ApiBody)({ schema: {
             type: 'object',
             properties: {
-                fullname: {
+                fullName: {
                     type: 'string',
                     example: 'Mehmet Demir'
                 },
@@ -53,7 +53,7 @@ __decorate([
                     type: 'string',
                     example: 'password234'
                 },
-                addres: {
+                address: {
                     type: 'string',
                     example: 'London/England'
                 }
@@ -69,6 +69,14 @@ __decorate([
     (0, swagger_1.ApiBody)({ schema: {
             type: 'object',
             properties: {
+                fullName: {
+                    type: 'string',
+                    example: 'Mehmet Demir'
+                },
+                username: {
+                    type: 'string',
+                    example: 'Memo'
+                },
                 email: {
                     type: 'string',
                     example: 'example@example.com'
@@ -76,6 +84,10 @@ __decorate([
                 password: {
                     type: 'string',
                     example: 'password234'
+                },
+                address: {
+                    type: 'string',
+                    example: 'London/England'
                 }
             }
         } }),

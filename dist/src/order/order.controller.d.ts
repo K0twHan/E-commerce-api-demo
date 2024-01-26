@@ -26,7 +26,14 @@ export declare class OrderController {
         };
     }>;
     update(id: string, updateOrderDto: UpdateOrderDto): Promise<{
-        message: string;
+        new_order: {
+            id: number;
+            createdAt: Date;
+            status: string;
+            totalPrice: number;
+            userId: number;
+            updated_at: Date;
+        };
     }>;
     remove(id: string): Promise<{
         message: string;

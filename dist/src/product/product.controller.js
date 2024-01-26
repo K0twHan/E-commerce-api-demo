@@ -48,9 +48,9 @@ __decorate([
             properties: {
                 name: {
                     type: 'string',
-                    example: 'Jbl Bt-520'
+                    example: 'Jbl Bt-530'
                 },
-                desription: {
+                description: {
                     type: 'string',
                     example: 'A bluetooth Headphone'
                 },
@@ -58,9 +58,13 @@ __decorate([
                     type: 'integer',
                     example: "52"
                 },
+                price: {
+                    type: 'float',
+                    example: '345.25'
+                },
                 categories: {
                     type: 'String[]',
-                    example: '[{"name" : "Electronic"},{"name" :"Headphone" }]'
+                    example: '["Electronic","Headphone"]'
                 }
             }
         } }),
@@ -81,7 +85,7 @@ __decorate([
     (0, swagger_1.ApiParam)({
         name: 'id',
         type: 'integer',
-        description: 'enter unique id',
+        description: 'id değeri giriniz',
         required: true
     }),
     __param(0, (0, common_1.Param)('id')),
@@ -92,10 +96,36 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(jtw_guard_1.JwtAuthGuard),
     (0, common_1.Patch)(':id'),
+    (0, swagger_1.ApiBody)({ schema: {
+            type: 'object',
+            properties: {
+                name: {
+                    type: 'string',
+                    example: 'Jbl Bt-520'
+                },
+                description: {
+                    type: 'string',
+                    example: 'A bluetooth Headphone'
+                },
+                stock: {
+                    type: 'integer',
+                    example: "52"
+                },
+                price: {
+                    type: 'float',
+                    example: '345.25'
+                },
+                categories: {
+                    type: 'String[]',
+                    example: '["Electronic","Headphone"]'
+                }
+            },
+            description: "Değiştirmek istediğiniz değerleri düzenleyiniz"
+        } }),
     (0, swagger_1.ApiParam)({
         name: 'id',
         type: 'integer',
-        description: 'enter unique id',
+        description: 'id değeri giriniz',
         required: true
     }),
     __param(0, (0, common_1.Param)('id')),
@@ -110,7 +140,7 @@ __decorate([
     (0, swagger_1.ApiParam)({
         name: 'id',
         type: 'integer',
-        description: 'enter unique id',
+        description: 'id değeri giriniz',
         required: true
     }),
     __param(0, (0, common_1.Param)('id')),

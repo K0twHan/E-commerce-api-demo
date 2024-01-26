@@ -13,6 +13,7 @@ exports.UpdateProductDto = void 0;
 const mapped_types_1 = require("@nestjs/mapped-types");
 const create_product_dto_1 = require("./create-product.dto");
 const class_validator_1 = require("class-validator");
+const class_transformer_1 = require("class-transformer");
 class UpdateProductDto extends (0, mapped_types_1.PartialType)(create_product_dto_1.CreateProductDto) {
 }
 exports.UpdateProductDto = UpdateProductDto;
@@ -40,7 +41,7 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsArray)(),
-    (0, class_validator_1.IsString)({ each: true }),
+    (0, class_transformer_1.Type)(() => String),
     __metadata("design:type", Array)
 ], UpdateProductDto.prototype, "categories", void 0);
 //# sourceMappingURL=update-product.dto.js.map

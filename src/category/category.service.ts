@@ -10,7 +10,7 @@ export class CategoryService {
     const {name} = createCategoryDto;
     await this.prisma.category.create({data : {name}})
     
-    return {message : '${name} was created'};
+    return {message : `${name} adlı kategori oluşturuldu`};
   }
 
   async findAll() {
@@ -26,7 +26,7 @@ export class CategoryService {
     const old_category = await this.prisma.category.findUnique({where : {id}})
     if(!old_category)
     {
-      throw new NotFoundException('Product was not found')
+      throw new NotFoundException('Ürün bulunamadı')
     }
     const new_category = await this.prisma.category.update({where : {id}, data: updateCategoryDto,})
     return `${old_category.name} updated to ${new_category.name}`
@@ -34,6 +34,6 @@ export class CategoryService {
 
   async remove(id: number) {
     await this.prisma.category.delete({where : {id}})
-    return {message : "Category deleted succesfully"};
+    return {message : `${id} numaralı Categori başarıyla silindi`};
   }
 }

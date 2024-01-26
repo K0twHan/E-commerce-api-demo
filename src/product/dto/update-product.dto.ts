@@ -26,6 +26,6 @@ export class UpdateProductDto extends PartialType(CreateProductDto) {
     @IsOptional()
     @IsNotEmpty()
     @IsArray()
-    @IsString({ each: true }) // Her bir kategori adının string olması gerektiğini belirtiyoruz
+    @Type(() => String) // Dizideki her öğenin tipini belirt
     public categories: string[];
 }

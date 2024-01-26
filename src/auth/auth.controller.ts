@@ -12,7 +12,7 @@ export class AuthController {
   @ApiBody({schema : {
     type : 'object',
     properties : {
-      fullname : {
+      fullName : {
         type : 'string',
         example : 'Mehmet Demir'
       },
@@ -28,7 +28,7 @@ export class AuthController {
         type : 'string',
         example: 'password234'
       },
-      addres : {
+      address : {
         type : 'string',
         example :'London/England'
       }
@@ -43,6 +43,14 @@ export class AuthController {
   @ApiBody({schema : {
     type : 'object',
     properties : {
+      fullName : {
+        type : 'string',
+        example : 'Mehmet Demir'
+      },
+      username : {
+        type : 'string',
+        example : 'Memo'
+      },
       email : {
         type : 'string',
         example : 'example@example.com'
@@ -50,8 +58,11 @@ export class AuthController {
       password : {
         type : 'string',
         example: 'password234'
+      },
+      address : {
+        type : 'string',
+        example :'London/England'
       }
-
     }
   }})
   signin(@Body() dto : AuthDto,@Req() req, @Res() res){

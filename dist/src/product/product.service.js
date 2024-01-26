@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductService = void 0;
 const common_1 = require("@nestjs/common");
-const update_product_dto_1 = require("./dto/update-product.dto");
 const prisma_service_1 = require("../../prisma/prisma.service");
 let ProductService = class ProductService {
     constructor(prisma) {
@@ -21,7 +20,7 @@ let ProductService = class ProductService {
         const { name, description, stock, price, categories } = createProductDto;
         const foundProduct = await this.prisma.product.findMany({ where: { name } });
         if (foundProduct.length !== 0) {
-            throw new common_1.BadRequestException('Name already exist');
+            throw new common_1.BadRequestException('Bu isimde ürün zaten mevcut');
         }
         await this.prisma.product.create({ data: {
                 name,
@@ -35,7 +34,7 @@ let ProductService = class ProductService {
                     })),
                 }
             } });
-        return { message: 'Product created succesfully' };
+        return { message: 'Ürün başarıyla eklendi' };
     }
     async findAll() {
         return this.prisma.product.findMany();
@@ -48,14 +47,30 @@ let ProductService = class ProductService {
     async update(id, updateProductDto) {
         const old_product = await this.prisma.product.findUnique({ where: { id } });
         if (!old_product) {
-            throw new common_1.NotFoundException('Product was not found');
+            throw new common_1.NotFoundException('Ürün bulunamadı');
         }
-        const updated_product = await this.prisma.product.update({ where: { id }, data: update_product_dto_1.UpdateProductDto });
+        const updated_product = await this.prisma.product.update({
+            where: { id },
+            data: {
+                ...(updateProductDto.name && { name: updateProductDto.name }),
+                ...(updateProductDto.description && { description: updateProductDto.description }),
+                ...(updateProductDto.price && { price: updateProductDto.price }),
+                ...(updateProductDto.stock && { stock: updateProductDto.stock }),
+                ...(updateProductDto.categories && {
+                    categories: {
+                        connectOrCreate: updateProductDto.categories.map(category => ({
+                            where: { name: category },
+                            create: { name: category },
+                        })),
+                    },
+                }),
+            },
+        });
         return { updated_product };
     }
     async remove(id) {
         await this.prisma.product.delete({ where: { id } });
-        return { message: `Product deleted succesfully` };
+        return { message: `${id} numaralı ürün başarıyla silindi` };
     }
 };
 exports.ProductService = ProductService;
