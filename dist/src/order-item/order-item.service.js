@@ -18,6 +18,10 @@ let OrderItemService = class OrderItemService {
     }
     async create(createOrderItemDto) {
         const { quantity, productId, orderId } = createOrderItemDto;
+        const alreadyexistorder = this.prisma.order.findUnique({ where: { id: productId } });
+        if (!alreadyexistorder) {
+            throw new common_1.HttpException('Var olmayan bir ürünü eklemeye çalışıyorsunuz', common_1.HttpStatus.BAD_REQUEST);
+        }
         await this.prisma.orderItem.create({ data: {
                 quantity, productId, orderId
             } });

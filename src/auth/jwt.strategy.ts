@@ -1,6 +1,6 @@
 import { ExtractJwt,Strategy } from "passport-jwt";
 import { PassportStrategy } from "@nestjs/passport";
-import { Injectable } from "@nestjs/common";
+import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { jwtSecret } from "src/utils/constants";
 import { Request } from "express";
 
@@ -22,6 +22,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         return null
     }
     async validate(payload : {id: number,email: string}) {
+        if (!payload || !payload.id) {
+            throw new UnauthorizedException('Kullanıcı bilgileri geçersiz veya eksik.');
+        }
+
         return payload
     }
 

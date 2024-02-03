@@ -80,6 +80,6 @@ export class AuthService {
     async signToken(args : {id:number,email: string}) {
         const payload = args
 
-       return this.jwt.signAsync(payload,{secret: jwtSecret})
+       return this.jwt.signAsync(payload,{secret: jwtSecret,expiresIn : '1h'},)
     }
 }

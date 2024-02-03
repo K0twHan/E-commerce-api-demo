@@ -67,7 +67,7 @@ let AuthService = class AuthService {
     }
     async signToken(args) {
         const payload = args;
-        return this.jwt.signAsync(payload, { secret: constants_1.jwtSecret });
+        return this.jwt.signAsync(payload, { secret: constants_1.jwtSecret, expiresIn: '1h' });
     }
 };
 exports.AuthService = AuthService;

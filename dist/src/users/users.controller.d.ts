@@ -10,6 +10,7 @@ export declare class UsersController {
             username: string;
             fullName: string;
             address: string;
+            id: number;
         };
     }>;
     getUsers(): Promise<{
@@ -17,5 +18,6 @@ export declare class UsersController {
         username: string;
         fullName: string;
         address: string;
+        id: number;
     }[]>;
 }

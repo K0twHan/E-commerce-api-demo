@@ -12,7 +12,7 @@ export class UsersService {
       
         const id = parseInt(userId, 10);
 
-      const user = await this.prisma.user.findUnique({where : {id},select: {fullName : true,username : true,address : true,email : true}})
+      const user = await this.prisma.user.findUnique({where : {id},select: {id:true,fullName : true,username : true,address : true,email : true}})
         if(!user)
         {
             throw new NotFoundException()
@@ -27,7 +27,7 @@ export class UsersService {
     }
 
     async getUsers() {
-        return this.prisma.user.findMany({select : {fullName : true,username : true,address : true,email : true}})
+        return this.prisma.user.findMany({select : {id: true,fullName : true,username : true,address : true,email : true}})
     }
    
 }

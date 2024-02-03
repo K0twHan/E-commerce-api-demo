@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, Req, UnauthorizedException } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { PrismaService } from 'prisma/prisma.service';
@@ -19,8 +19,13 @@ export class OrderService {
     return this.prisma.order.findMany();
   }
 
-  async findOne(id: number) {
+  async findOne(id: number,@Req() req ) {
+    
     const order = await this.prisma.order.findUnique({where: {id}})
+    if(req.user.id !== order.userId)
+    {
+      throw new UnauthorizedException("Lütfen sizinle alakalı siparişleri arayın")
+    }
     return {order};
   }
 

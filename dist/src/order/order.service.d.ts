@@ -15,7 +15,7 @@ export declare class OrderService {
         userId: number;
         updated_at: Date;
     }[]>;
-    findOne(id: number): Promise<{
+    findOne(id: number, req: any): Promise<{
         order: {
             id: number;
             createdAt: Date;

@@ -118,6 +118,7 @@ __decorate([
 ], CategoryController.prototype, "remove", null);
 exports.CategoryController = CategoryController = __decorate([
     (0, swagger_1.ApiTags)('Category'),
+    (0, common_1.UseGuards)(jtw_guard_1.JwtAuthGuard),
     (0, common_1.Controller)('category'),
     __metadata("design:paramtypes", [category_service_1.CategoryService])
 ], CategoryController);

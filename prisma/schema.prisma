@@ -4,7 +4,6 @@
 generator client {
   provider = "prisma-client-js"
 }
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -23,16 +22,15 @@ model User {
   updated_at     DateTime @updatedAt()
 }
 
-// Product modelindeki OrderItem ile karşılıklı alan
+
 model Product {
   id          Int         @id @default(autoincrement())
   name        String
   description String
   price       Float
   stock       Int
-  image       String?
   categories  Category[]
-  orderItems  OrderItem[] // Karşılıklı alan
+  orderItems  OrderItem[] 
   created_at  DateTime    @default(now())
 }
 

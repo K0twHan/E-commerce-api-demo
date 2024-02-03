@@ -74,7 +74,15 @@ export class ProductService {
 }
 
   async remove(id: number) {
-    await this.prisma.product.delete({where : {id}})
+    const relatedOrderItem = await this.prisma.orderItem.findMany({where : {orderId : id}})
+    if(relatedOrderItem.length > 0)
+    {
+      for(const item of relatedOrderItem)
+      {
+        await this.prisma.orderItem.delete({where : {id : item.id}})
+      }
+    }
+    await this.prisma.product.deleteMany({where : {id}})
     return {message :`${id} numaralı ürün başarıyla silindi`};
   }
 }

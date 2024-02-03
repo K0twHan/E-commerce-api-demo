@@ -18,6 +18,10 @@ let CategoryService = class CategoryService {
     }
     async create(createCategoryDto) {
         const { name } = createCategoryDto;
+        const old_category = await this.prisma.category.findUnique({ where: { name } });
+        if (old_category) {
+            return { message: "Var olan bir kategoriyi tekrar oluşturamazsın" };
+        }
         await this.prisma.category.create({ data: { name } });
         return { message: `${name} adlı kategori oluşturuldu` };
     }
@@ -34,7 +38,7 @@ let CategoryService = class CategoryService {
             throw new common_1.NotFoundException('Ürün bulunamadı');
         }
         const new_category = await this.prisma.category.update({ where: { id }, data: updateCategoryDto, });
-        return `${old_category.name} updated to ${new_category.name}`;
+        return `${old_category.name} ismi ${new_category.name} ismine başarıyla güncellendi`;
     }
     async remove(id) {
         await this.prisma.category.delete({ where: { id } });

@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateOrderItemDto } from './dto/create-order-item.dto';
 import { UpdateOrderItemDto } from './dto/update-order-item.dto';
 import { PrismaService } from 'prisma/prisma.service';
@@ -7,7 +7,13 @@ import { PrismaService } from 'prisma/prisma.service';
 export class OrderItemService {
   constructor(private prisma : PrismaService) {}
   async create(createOrderItemDto: CreateOrderItemDto) {
+  
     const {quantity,productId,orderId} = createOrderItemDto;
+  const alreadyexistorder = this.prisma.order.findUnique({where : {id : productId}})
+  if(!alreadyexistorder)
+  {
+    throw new HttpException('Var olmayan bir ürünü eklemeye çalışıyorsunuz',HttpStatus.BAD_REQUEST)
+  }
     await this.prisma.orderItem.create({data : {
       quantity,productId,orderId
     }})

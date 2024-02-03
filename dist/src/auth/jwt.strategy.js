@@ -31,6 +31,9 @@ let JwtStrategy = JwtStrategy_1 = class JwtStrategy extends (0, passport_1.Passp
         return null;
     }
     async validate(payload) {
+        if (!payload || !payload.id) {
+            throw new common_1.UnauthorizedException('Kullanıcı bilgileri geçersiz veya eksik.');
+        }
         return payload;
     }
 };

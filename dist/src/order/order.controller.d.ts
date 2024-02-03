@@ -15,7 +15,7 @@ export declare class OrderController {
         userId: number;
         updated_at: Date;
     }[]>;
-    findOne(id: string): Promise<{
+    findOne(id: string, req: any): Promise<{
         order: {
             id: number;
             createdAt: Date;
