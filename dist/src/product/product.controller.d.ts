@@ -18,10 +18,10 @@ export declare class ProductController {
     }[]>;
     findOne(id: string): Promise<{
         product: {
-            description: string;
             name: string;
-            price: number;
+            description: string;
             stock: number;
+            price: number;
             categories: {
                 name: string;
             }[];

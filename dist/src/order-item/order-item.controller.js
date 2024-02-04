@@ -17,7 +17,7 @@ const common_1 = require("@nestjs/common");
 const order_item_service_1 = require("./order-item.service");
 const create_order_item_dto_1 = require("./dto/create-order-item.dto");
 const update_order_item_dto_1 = require("./dto/update-order-item.dto");
-const jtw_guard_1 = require("../auth/jtw.guard");
+const jwt_guard_1 = require("../auth/guards/jwt.guard");
 const swagger_1 = require("@nestjs/swagger");
 let OrderItemController = class OrderItemController {
     constructor(orderItemService) {
@@ -41,7 +41,7 @@ let OrderItemController = class OrderItemController {
 };
 exports.OrderItemController = OrderItemController;
 __decorate([
-    (0, common_1.UseGuards)(jtw_guard_1.JwtAuthGuard),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
     (0, common_1.Post)(),
     (0, swagger_1.ApiBody)({ schema: {
             type: 'object',
@@ -66,14 +66,14 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], OrderItemController.prototype, "create", null);
 __decorate([
-    (0, common_1.UseGuards)(jtw_guard_1.JwtAuthGuard),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], OrderItemController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.UseGuards)(jtw_guard_1.JwtAuthGuard),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
     (0, common_1.Get)(':id'),
     (0, swagger_1.ApiParam)({
         name: 'id',
@@ -87,7 +87,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], OrderItemController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.UseGuards)(jtw_guard_1.JwtAuthGuard),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
     (0, common_1.Patch)(':id'),
     (0, swagger_1.ApiBody)({ schema: {
             type: 'object',
@@ -120,7 +120,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], OrderItemController.prototype, "update", null);
 __decorate([
-    (0, common_1.UseGuards)(jtw_guard_1.JwtAuthGuard),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
     (0, common_1.Delete)(':id'),
     (0, swagger_1.ApiParam)({
         name: 'id',

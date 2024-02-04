@@ -6,18 +6,18 @@ export declare class UsersController {
         userId: string;
     }, req: any): Promise<{
         user: {
-            email: string;
+            id: number;
             username: string;
+            email: string;
             fullName: string;
             address: string;
-            id: number;
         };
     }>;
     getUsers(): Promise<{
-        email: string;
+        id: number;
         username: string;
+        email: string;
         fullName: string;
         address: string;
-        id: number;
     }[]>;
 }

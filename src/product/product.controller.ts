@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@n
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { JwtAuthGuard } from 'src/auth/jtw.guard';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { ApiBody, ApiParam, ApiTags } from '@nestjs/swagger';
 @ApiTags('Product')
 @Controller('product')

@@ -17,9 +17,9 @@ const common_1 = require("@nestjs/common");
 const order_service_1 = require("./order.service");
 const create_order_dto_1 = require("./dto/create-order.dto");
 const update_order_dto_1 = require("./dto/update-order.dto");
-const jtw_guard_1 = require("../auth/jtw.guard");
+const jwt_guard_1 = require("../auth/guards/jwt.guard");
 const swagger_1 = require("@nestjs/swagger");
-const deneme_1 = require("../auth/deneme");
+const orderCreateGuard_1 = require("../auth/guards/orderCreateGuard");
 let OrderController = class OrderController {
     constructor(orderService) {
         this.orderService = orderService;
@@ -60,7 +60,7 @@ __decorate([
                 }
             }
         } }),
-    (0, common_1.UseGuards)(deneme_1.createGuard),
+    (0, common_1.UseGuards)(orderCreateGuard_1.createPatchGuard),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_order_dto_1.CreateOrderDto]),
@@ -73,7 +73,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], OrderController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.UseGuards)(jtw_guard_1.JwtAuthGuard),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
     (0, common_1.Get)(':id'),
     (0, swagger_1.ApiParam)({
         name: 'id',
@@ -88,6 +88,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], OrderController.prototype, "findOne", null);
 __decorate([
+    (0, common_1.UseGuards)(orderCreateGuard_1.createPatchGuard),
     (0, common_1.Patch)(':id'),
     (0, swagger_1.ApiBody)({ schema: {
             type: "object",
@@ -134,7 +135,7 @@ __decorate([
 ], OrderController.prototype, "remove", null);
 exports.OrderController = OrderController = __decorate([
     (0, swagger_1.ApiTags)('Order'),
-    (0, common_1.UseGuards)(jtw_guard_1.JwtAuthGuard),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
     (0, common_1.Controller)('order'),
     __metadata("design:paramtypes", [order_service_1.OrderService])
 ], OrderController);

@@ -2,9 +2,12 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } fro
 import { OrderService } from './order.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
-import { JwtAuthGuard } from 'src/auth/jtw.guard';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { ApiBody, ApiParam, ApiTags } from '@nestjs/swagger';
-import { createGuard } from 'src/auth/deneme';
+import { createPatchGuard } from 'src/auth/guards/orderCreateGuard';
+
+
+
 @ApiTags('Order')
 @UseGuards(JwtAuthGuard)
 @Controller('order')
@@ -29,7 +32,7 @@ export class OrderController {
       }
     }
   }})
-  @UseGuards(createGuard)
+  @UseGuards(createPatchGuard)
   create(@Body() createOrderDto: CreateOrderDto) {
     return this.orderService.create(createOrderDto);
   }
@@ -48,7 +51,7 @@ export class OrderController {
   findOne(@Param('id') id: string,@Req() req) {
     return this.orderService.findOne(+id,req);
   }
- // @UseGuards(pdGuard)
+  @UseGuards(createPatchGuard)
   @Patch(':id')
   @ApiBody({schema: {
     type : "object",

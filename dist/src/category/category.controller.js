@@ -17,7 +17,7 @@ const common_1 = require("@nestjs/common");
 const category_service_1 = require("./category.service");
 const create_category_dto_1 = require("./dto/create-category.dto");
 const update_category_dto_1 = require("./dto/update-category.dto");
-const jtw_guard_1 = require("../auth/jtw.guard");
+const jwt_guard_1 = require("../auth/guards/jwt.guard");
 const swagger_1 = require("@nestjs/swagger");
 let CategoryController = class CategoryController {
     constructor(categoryService) {
@@ -41,7 +41,7 @@ let CategoryController = class CategoryController {
 };
 exports.CategoryController = CategoryController;
 __decorate([
-    (0, common_1.UseGuards)(jtw_guard_1.JwtAuthGuard),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
     (0, common_1.Post)(),
     (0, swagger_1.ApiBody)({ schema: {
             type: 'object',
@@ -77,7 +77,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CategoryController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.UseGuards)(jtw_guard_1.JwtAuthGuard),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
     (0, common_1.Patch)(':id'),
     (0, swagger_1.ApiBody)({ schema: {
             type: 'object',
@@ -103,7 +103,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CategoryController.prototype, "update", null);
 __decorate([
-    (0, common_1.UseGuards)(jtw_guard_1.JwtAuthGuard),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
     (0, common_1.Delete)(':id'),
     (0, swagger_1.ApiParam)({
         name: 'id',
@@ -118,7 +118,7 @@ __decorate([
 ], CategoryController.prototype, "remove", null);
 exports.CategoryController = CategoryController = __decorate([
     (0, swagger_1.ApiTags)('Category'),
-    (0, common_1.UseGuards)(jtw_guard_1.JwtAuthGuard),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
     (0, common_1.Controller)('category'),
     __metadata("design:paramtypes", [category_service_1.CategoryService])
 ], CategoryController);

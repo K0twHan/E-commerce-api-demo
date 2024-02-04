@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Param, Patch, Req, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { JwtAuthGuard } from 'src/auth/jtw.guard';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { ApiBody, ApiParam, ApiTags } from '@nestjs/swagger';
-import { userGuard } from 'src/auth/deneme';
+import { userGuard } from 'src/auth/guards/userGuard';
 
 @ApiTags('Users')
 @Controller('users')
